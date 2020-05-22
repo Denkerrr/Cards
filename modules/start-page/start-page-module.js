@@ -30,7 +30,7 @@ export class StartPageModule {
     getHTML() {
         const startPage = document.createElement('div');
         startPage.className = 'start-page';
-        startPage.appendChild(new Cards(this.cards).getElement());
+        startPage.appendChild(new Cards(this.cards).element);
         return startPage;
     }
 }

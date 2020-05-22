@@ -15,17 +15,17 @@ export class Cards {
         this.values.forEach(x => {
             const _cardClass = new Card(x);
             this._cards = [...this._cards, _cardClass];
-            this._element.appendChild(_cardClass.getElement());
+            this._element.appendChild(_cardClass.element);
         });
         console.log('---', 'Cards', this);
         return this._element;
     }
 
-    getElement() {
+    get element() {
         return this.create();
     }
 
-    getHTML() {
-        return this.create().outerHTML;
+    get elementHTML() {
+        return this.element.outerHTML;
     }
 }
