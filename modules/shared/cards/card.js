@@ -42,7 +42,6 @@ export class Card {
     setEventListenerClick() {
         this._element.addEventListener('click', (e) => {
             console.log('---', `click on card ${this.config.name}`);
-            location.href(this.config.redirectUrl)
         })
     }
 
@@ -56,6 +55,7 @@ export class Card {
 
         if (this.config.redirectUrl) {
             this._element.classList.add('cards__item--redirect');
+            this._element.setAttribute('route', this.config.redirectUrl);
             this.setEventListenerClick();
         }
 
