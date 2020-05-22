@@ -24,7 +24,8 @@ const MODULE_CONTAINER_ID = 'root';
 
     loadContent(cfg) {
         const module = typeof cfg === 'string' ? new this._getRouteItemByUrl(cfg).module() : cfg;
-        document.getElementById(MODULE_CONTAINER_ID).innerHTML = module.getHTML();
+        document.getElementById(MODULE_CONTAINER_ID).innerHTML = '';
+        document.getElementById(MODULE_CONTAINER_ID).appendChild(module.getHTML());
     }
 
      _getRouteItemByUrl(url) {
