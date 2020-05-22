@@ -1,12 +1,9 @@
 import {MunchkinDesk} from "./munchkin-desk.js";
-import {route} from "../../main.js";
 
 export class MunchkinModule {
 
     desk = new MunchkinDesk();
-    constructor() {
-        route.go('/munchkin');
-    }
+    constructor() {}
 
 
     getHTML() {
