@@ -62,11 +62,11 @@ export class Card {
         return this._element;
     }
 
-    getElement() {
+    get element() {
         return this.create();
     }
 
-    getHTML() {
+    get elementHTML() {
         return this.getElement().outerHTML;
     }
 
