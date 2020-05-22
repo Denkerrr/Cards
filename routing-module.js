@@ -18,12 +18,18 @@ const MODULE_CONTAINER_ID = 'root';
         if (item) {
             const module = new item.module();
             window.history.pushState({module, url: item.url}, module.name, window.location.origin + item.url);
-            this.loadContent(module);
+            this.loadContentByModule(module);
         }
     }
 
-    loadContent(cfg) {
-        const module = typeof cfg === 'string' ? new this._getRouteItemByUrl(cfg).module() : cfg;
+    loadContentByUrl(url) {
+        const item = this._getRouteItemByUrl(url);
+        const module = new item.module();
+        document.getElementById(MODULE_CONTAINER_ID).innerHTML = '';
+        document.getElementById(MODULE_CONTAINER_ID).appendChild(module.getHTML());
+    }
+
+    loadContentByModule(module) {
         document.getElementById(MODULE_CONTAINER_ID).innerHTML = '';
         document.getElementById(MODULE_CONTAINER_ID).appendChild(module.getHTML());
     }
