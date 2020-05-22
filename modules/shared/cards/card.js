@@ -6,7 +6,7 @@ export class Card {
         imageUrl: '',
         redirectUrl: ''
     };
-    _element;
+    _element = null;
 
     constructor(props) {
         this.init(props);
@@ -67,7 +67,7 @@ export class Card {
     }
 
     get elementHTML() {
-        return this.getElement().outerHTML;
+        return this.element.outerHTML;
     }
 
 }

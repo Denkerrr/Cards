@@ -3,7 +3,7 @@ import {Card} from "./card.js";
 export class Cards {
     values = [];
     _cards = [];
-    _element;
+    _element = null;
 
     constructor(props) {
         this.values = props;
