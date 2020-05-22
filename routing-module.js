@@ -2,27 +2,35 @@ import {MunchkinModule} from "./modules/munchkin/munchkin-module.js";
 import {StartPageModule} from "./modules/start-page/start-page-module.js";
 
 const routes = [
-    {url: '*', module: StartPageModule},
-    {url: 'munchkin', module: MunchkinModule},
+    {url: '/', module: StartPageModule, default: true},
+    {url: '/munchkin', module: MunchkinModule},
 ];
 
 const MODULE_CONTAINER_ID = 'root';
-export class RoutingModule {
+ class RoutingModule {
 
     constructor() {
-        this.go('*')
+        this.go(location.pathname)
     }
 
     go(url) {
-        debugger;
         const item = this._getRouteItemByUrl(url);
         if (item) {
-            // location.href += `/${item.url}`;
-            document.getElementById(MODULE_CONTAINER_ID).innerHTML = new item.module().getHTML();
+            const module = new item.module();
+            window.history.pushState({module, url: item.url}, module.name, window.location.origin + item.url);
+            this.loadContent(module);
         }
     }
 
+    loadContent(cfg) {
+        const module = typeof cfg === 'string' ? new this._getRouteItemByUrl(cfg).module() : cfg;
+        document.getElementById(MODULE_CONTAINER_ID).innerHTML = module.getHTML();
+    }
+
      _getRouteItemByUrl(url) {
-        return routes.find(x => x.url === url);
+        return routes.find(x => x.url.replace('/', '') === url.replace('/', '')) ||
+               routes.find(x => x.default);
     }
 }
+
+export default RoutingModule;
