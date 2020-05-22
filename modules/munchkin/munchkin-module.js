@@ -1,4 +1,4 @@
-import {MunchkinDesk} from "./munchkin-desk";
+import {MunchkinDesk} from "./munchkin-desk.js";
 
 export class MunchkinModule {
 
@@ -11,6 +11,6 @@ export class MunchkinModule {
         const html = document.createElement('div');
         html.id = 'munchkin';
         html.getElementById('munchkin').innerHTML = this.desk.getHTML()
-        return html;
+        return html.toString();
     }
 }
