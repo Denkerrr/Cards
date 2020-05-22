@@ -1,3 +1,11 @@
+:root {
+    --card-background: azure;
+    --card-height: 350px;
+    --card-image-height: 100px;
+    --card-text-height: 50px;
+    --card-description-height: 50px;
+}
+
 body {
     height: 100vh;
     margin: 0;
@@ -15,7 +23,6 @@ header {
 
 #root {
     flex: 1;
-    padding: 30px;
 }
 
 footer {
@@ -26,6 +33,7 @@ footer {
 /* START PAGE */
 
 .start-page {
+  padding: 30px;
 }
 
 /* CARDS */
@@ -39,18 +47,22 @@ footer {
 }
 
 .cards__item {
-    height: 350px;
+    height: var(--card-height, 350px);
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 0 1px 0 rgba(0,0,0,.3);
-    background: darkseagreen;
+    background: var(--card-background, darkseagreen);
     text-align: center;
     display: grid;
-    grid-template-rows: minmax(100px, 1fr) repeat(2, 50px);
+    grid-template-rows:
+            minmax(var(--card-image-height, 100px), 1fr)
+            var(--card-text-height, 50px)
+            var(--card-description-height, 50px);
     transition: 300ms transform ease-in-out;
 }
 
-.cards__item:hover {
+.cards__item:not([disable]):hover,
+.cards__item:not([disable]):focus {
     transform: translateY(-10px);
 }
 
@@ -61,4 +73,45 @@ footer {
 .cards__item__image {
     height: 100%;
     width: 100%;
+}
+
+/* MUNCHKIN */
+
+#munchkin {
+    height: 100%;
+}
+
+/* MUNCHKIN DESK */
+
+.munchkin-desk {
+    height: inherit;
+    background: cadetblue;
+    display: grid;
+    grid-template-columns: .5fr 2fr .5fr;
+    grid-template-rows: 250px 1fr 250px;
+}
+
+.munchkin-desk > * {
+    border: 1px solid azure;
+}
+
+.munchkin-desk__player {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 150px));
+    grid-gap: 30px;
+    justify-content: center;
+    align-items: center;
+    grid-column: span 3;
+    height: 100%;
+    --card-height: 250px;
+    --card-text-height: 50px;
+    --card-description-height: 50px;
+}
+
+.munchkin-desk__player--enemy {
+    --card-background: tomato;
+}
+
+.munchkin-desk__player--enemy .cards__item * {
+    display: none;
 }

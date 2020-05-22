@@ -3,10 +3,11 @@ import {Card} from "./card.js";
 export class Cards {
     values = [];
     _cards = [];
-    _element = null;
+    _element;
 
     constructor(props) {
         this.values = props;
+        this.create();
     }
 
     create() {
@@ -22,10 +23,10 @@ export class Cards {
     }
 
     get element() {
-        return this.create();
+        return this._element || null;
     }
 
     get elementHTML() {
-        return this.element.outerHTML;
+        return this._element.outerHTML || null;
     }
 }
