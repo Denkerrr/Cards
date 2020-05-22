@@ -3,6 +3,8 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+    background: #e6e6e6;
+    font-family: sans-serif;
 }
 
 header {
@@ -11,12 +13,45 @@ header {
     background-color: aquamarine;
 }
 
-
 #root {
     flex: 1;
+    padding: 30px;
 }
 
 footer {
     flex: 0;
     background-color: tomato;
+}
+
+/* START PAGE */
+
+.start-page {
+}
+
+/* CARDS */
+
+.cards {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px;
+}
+
+.cards__item {
+    height: 300px;
+    box-shadow: 0 0 1px 0 rgba(0,0,0,.3);
+    background: darkseagreen;
+    text-align: center;
+    display: grid;
+    grid-template-rows: minmax(100px, 1fr) repeat(2, 50px);
+    transition: 300ms transform ease-in-out;
+}
+
+.cards__item:hover {
+    transform: translate(-15px, -15px);
+}
+
+.cards__item--redirect {
+    cursor: pointer;
 }

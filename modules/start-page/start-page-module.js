@@ -1,9 +1,14 @@
+import {Cards} from "../shared/cards/cards.js";
+
 export class StartPageModule {
 
     cards = [
         {
             id: 1,
-            name: 'Munchkin'
+            name: 'Munchkin',
+            imageUrl: 'https://memepedia.ru/wp-content/uploads/2018/07/150412976013508192-kopiya-768x576.jpg',
+            redirectUrl: '/munchkin',
+            description: 'McChicken? No! Is Munchkin!'
         },
         {
             id: 2,
@@ -19,27 +24,13 @@ export class StartPageModule {
         }
     ];
 
-    constructor(
-
-    ) {
-    }
-
-
-    getCardElements() {
-        let cardsElements = '';
-        this.cards.forEach(x =>
-            cardsElements +=
-                '<div class="cards__item" key="' + x.id + '">' + x.name + '</div>'
-        );
-        return cardsElements;
+    constructor() {
     }
 
     getHTML() {
-        const page = '<div class="start-page">'
-                + '<div class="cards">'
-                    + this.getCardElements()
-                + '</div>'
-                + '</div>';
-        return page.toString();
+        const startPage = document.createElement('div');
+        startPage.className = 'start-page';
+        startPage.appendChild(new Cards(this.cards).getElement());
+        return startPage;
     }
 }
