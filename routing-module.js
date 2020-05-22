@@ -14,11 +14,11 @@ export class RoutingModule {
     }
 
     go(url) {
-        debugger;
         const item = this._getRouteItemByUrl(url);
         if (item) {
             // location.href += `/${item.url}`;
-            document.getElementById(MODULE_CONTAINER_ID).innerHTML = new item.module().getHTML();
+            document.getElementById(MODULE_CONTAINER_ID).innerHTML = '';
+            document.getElementById(MODULE_CONTAINER_ID).appendChild(new item.module().getHTML());
         }
     }
 
