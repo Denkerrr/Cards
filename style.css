@@ -1,0 +1,22 @@
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    flex: 0;
+    height: 50px;
+    background-color: aquamarine;
+}
+
+
+#root {
+    flex: 1;
+}
+
+footer {
+    flex: 0;
+    background-color: tomato;
+}
