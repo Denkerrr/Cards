@@ -2,9 +2,8 @@ import {MunchkinModule} from "./modules/munchkin/munchkin-module.js";
 import {StartPageModule} from "./modules/start-page/start-page-module.js";
 
 const routes = [
-    {url: '/', module: MunchkinModule, default: true},
-    // {url: '/', module: StartPageModule, default: true},
-    // {url: '/munchkin', module: MunchkinModule},
+    {url: '/', module: StartPageModule, default: true},
+    {url: '/munchkin', module: MunchkinModule},
 ];
 
 const MODULE_CONTAINER_ID = 'root';
@@ -19,13 +18,18 @@ const MODULE_CONTAINER_ID = 'root';
         if (item) {
             const module = new item.module();
             window.history.pushState({module, url: item.url}, module.name, window.location.origin + item.url);
-            this.loadContent(module);
+            this.loadContentByModule(module);
         }
     }
 
-    loadContent(cfg) {
-        debugger;
-        const module = typeof cfg === 'string' ? new this._getRouteItemByUrl(cfg).module() : cfg;
+    loadContentByUrl(url) {
+        const item = this._getRouteItemByUrl(url);
+        const module = new item.module();
+        document.getElementById(MODULE_CONTAINER_ID).innerHTML = '';
+        document.getElementById(MODULE_CONTAINER_ID).appendChild(module.getHTML());
+    }
+
+    loadContentByModule(module) {
         document.getElementById(MODULE_CONTAINER_ID).innerHTML = '';
         document.getElementById(MODULE_CONTAINER_ID).appendChild(module.getHTML());
     }
