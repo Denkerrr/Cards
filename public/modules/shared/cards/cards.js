@@ -7,6 +7,7 @@ export class Cards {
 
     constructor(props) {
         this.values = props;
+        this.create();
     }
 
     create() {
@@ -22,10 +23,10 @@ export class Cards {
     }
 
     get element() {
-        return this.create();
+        return this._element || null;
     }
 
     get elementHTML() {
-        return this.element.outerHTML;
+        return this._element.outerHTML || null;
     }
 }

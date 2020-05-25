@@ -4,12 +4,14 @@ export class Card {
         name: '',
         description: '',
         imageUrl: '',
-        redirectUrl: ''
+        redirectUrl: '',
+        disable: true
     };
     _element;
 
     constructor(props) {
         this.init(props);
+        this.create();
     }
 
     init(props) {
@@ -39,16 +41,30 @@ export class Card {
         return _pre;
     }
 
-    setEventListenerClick() {
+    setActionEventListener() {
+
         this._element.addEventListener('click', (e) => {
             console.log('---', `click on card ${this.config.name}`);
+        });
+
+        this._element.addEventListener('keydown', (e) => {
+            if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+                console.log('---', `entered on card ${this.config.name}`);
+            }
         })
     }
 
     create() {
         this._element = document.createElement('div');
         this._element.className = 'cards__item';
+
         this._element.setAttribute('key', this.config.id);
+        this._element.tabIndex = 0;
+
+        if (this.config.disable) {
+           this._element.setAttribute('disable', '');
+        }
+
         this._element.appendChild(this.setImageElement());
         this._element.appendChild(this.setNameElement());
         this._element.appendChild(this.setDescriptionElement());
@@ -56,18 +72,19 @@ export class Card {
         if (this.config.redirectUrl) {
             this._element.classList.add('cards__item--redirect');
             this._element.setAttribute('route', this.config.redirectUrl);
-            this.setEventListenerClick();
         }
+
+        this.setActionEventListener();
 
         return this._element;
     }
 
     get element() {
-        return this.create();
+        return this._element || null;
     }
 
     get elementHTML() {
-        return this.getElement().outerHTML;
+        return this._element.outerHTML || null;
     }
 
 }
