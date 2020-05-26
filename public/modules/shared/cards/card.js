@@ -5,7 +5,8 @@ export class Card {
         description: '',
         imageUrl: '',
         redirectUrl: '',
-        disable: true
+        disable: true,
+        _parent: null
     };
     _element;
 
@@ -54,20 +55,31 @@ export class Card {
         })
     }
 
+    setDeleteButton() {
+        const _b = document.createElement('button');
+        _b.className = 'cards__item__button--delete';
+        _b.addEventListener('click', () => {
+            this.config._parent.removeCard(this.config.id)
+        });
+        return _b;
+    }
+
     create() {
         this._element = document.createElement('div');
         this._element.className = 'cards__item';
 
         this._element.setAttribute('key', this.config.id);
+        this._element.id = 'card_' + this.config.id;
         this._element.tabIndex = 0;
 
         if (this.config.disable) {
-           this._element.setAttribute('disable', '');
+            this._element.setAttribute('disable', '');
         }
 
         this._element.appendChild(this.setImageElement());
         this._element.appendChild(this.setNameElement());
         this._element.appendChild(this.setDescriptionElement());
+        this._element.appendChild(this.setDeleteButton())
 
         if (this.config.redirectUrl) {
             this._element.classList.add('cards__item--redirect');
@@ -86,5 +98,4 @@ export class Card {
     get elementHTML() {
         return this._element.outerHTML || null;
     }
-
 }

@@ -23,7 +23,4 @@ app.get("/", (req, res) => res.sendFile(__dirname + "/public/index.html"))
         data: `Not found ${req.url}`
     }));
 
-app.listen(3000, (e) => {
-    console.log('---', 'listen port', e);
-    console.log(`Express server listening on port 3000`);
-});
+app.listen(3000);

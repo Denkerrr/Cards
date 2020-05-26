@@ -21,19 +21,20 @@ export class StartPageModule {
     }
 
     getCards() {
-        //TODO УБРАТЬ КОГДА С БЭКА БУДЕТ ПРИХОДИТЬ В РЕЗУЛЬТАТЕ ОБЪЕКТ
-        const _cardsContainer = document.getElementById('cards-container');
-
-        if (_cardsContainer) {
-            this.element.removeChild(_cardsContainer);
-        }
-
         service.getCards()
             .then(cards => {
                 this.cards = cards;
-                this.cardsConstructor = new Cards(this.cards);
-                this.element.appendChild(this.cardsConstructor.element);
+                this.cardsConstructor = new Cards(this.cards, () => this.updateCards());
+                this.cardsConstructor.updateFn();
             })
+    }
+
+    updateCards() {
+        const _cardsContainer = document.getElementById('cards-container');
+        if (_cardsContainer) {
+            this.element.removeChild(_cardsContainer);
+        }
+        this.element.appendChild(this.cardsConstructor.element);
     }
 
     get input() {
@@ -51,9 +52,9 @@ export class StartPageModule {
         b.style.height = '50px';
         b.addEventListener('click', () =>
             service.createCard({name: document.getElementById('create-input').value})
-                .then(response => {
-                    console.log(response);
-                    this.getCards()
+                .then(card => {
+                    this.cards.push(card);
+                    this.cardsConstructor.addCard(card);
                 })
         );
         return b;
