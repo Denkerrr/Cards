@@ -6,12 +6,13 @@ export class Cards {
     _element;
 
     constructor(props) {
-        this.values = props;
+        this.values = props || [];
         this.create();
     }
 
     create() {
         this._element = document.createElement('div');
+        this._element.id = 'cards-container';
         this._element.className = 'cards';
         this.values.forEach(x => {
             const _cardClass = new Card(x);
