@@ -52,6 +52,7 @@ export class StartPageModule {
         b.addEventListener('click', () =>
             service.createCard({name: document.getElementById('create-input').value})
                 .then(response => {
+                    console.log(response);
                     this.getCards()
                 })
         );

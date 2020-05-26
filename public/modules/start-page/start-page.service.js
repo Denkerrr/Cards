@@ -1,26 +1,13 @@
-import {_request} from "../../helpers/request.js";
+import { request } from "../../helpers/request.js";
 
 export function createCard(props) {
-    return new Promise((resolve) => {
-        _request(
-            'POST',
-            'http://localhost:3000/api/cards/create',
-            JSON.stringify(props),
-            (response, status) => {
-                resolve(response)
-            }
-        );
-    });
+    return request(
+        'POST',
+        'http://localhost:3000/api/cards/create',
+        JSON.stringify(props)
+    );
 }
 
 export function getCards() {
-    return new Promise((resolve) => {
-        _request(
-            'GET',
-            'http://localhost:3000/api/cards/get/all',
-            null,
-            (response, status) => {
-                resolve(response)
-            })
-    });
+    return request('GET', 'http://localhost:3000/api/cards/get/all')
 }
