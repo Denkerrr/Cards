@@ -1,12 +1,29 @@
 // подключение express
-const express = require("express");
-// создаем объект приложения
+const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const admin = require("firebase-admin");
+const serviceAccount = require("./server/serviceAccount.json");
 
-app.use(express.static('public'));
-// определяем обработчик для маршрута "/"
-app.get("/", function(request, response){
-    response.sendFile(__dirname + "/public/index.html");
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://xyteka.firebaseio.com"
 });
-// начинаем прослушивать подключения на 3000 порту
-app.listen(3000);
+
+app.use(express.static('public'))
+    .use(cors({origin: true}))
+    .use(bodyParser.json())
+    .use(bodyParser.urlencoded({extended: true}))
+    .use('/api', require('./server/api.module.js'));
+
+app.get("/", (req, res) => res.sendFile(__dirname + "/public/index.html"))
+    .get('*', (req, res) => res.status(404).json({
+        success: false,
+        data: `Not found ${req.url}`
+    }));
+
+app.listen(3000, (e) => {
+    console.log('---', 'listen port', e);
+    console.log(`Express server listening on port 3000`);
+});
