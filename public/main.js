@@ -7,5 +7,8 @@ window.addEventListener("popstate", event => {
 
 document.getElementById('root').addEventListener('click', (e) => {
    e.preventDefault();
-   route.go(e.target.closest('[route]').getAttribute('route'));
+   const routeTrigger = e.target.closest('[route]');
+   if (routeTrigger) {
+      route.go(routeTrigger.getAttribute('route'));
+   }
 })
