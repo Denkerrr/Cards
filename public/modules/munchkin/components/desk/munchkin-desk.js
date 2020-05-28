@@ -6,7 +6,7 @@ export class MunchkinDesk {
         player: {
             cards: Array.from(Array(10)).map((x, i) => ({
                 id: 1,
-                name: 'Attack',
+                name: 'Attack #' + (i+1),
                 description: 'Set 1 damage'
             }))
         },
