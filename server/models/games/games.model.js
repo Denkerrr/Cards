@@ -1,11 +1,11 @@
-function CardModel(props) {
+function GameModel(props) {
     return {
         id: props.hasOwnProperty('id') ? props.id : '',
-        ...SaveCardModel(props)
+        ...SaveGameModel(props)
     }
 }
 
-function SaveCardModel(props) {
+function SaveGameModel(props) {
     return {
         name: props.hasOwnProperty('name') ? props.name : '',
         description: props.hasOwnProperty('description') ? props.description : '',
@@ -15,6 +15,6 @@ function SaveCardModel(props) {
 }
 
 module.exports = {
-    CardModel,
-    SaveCardModel
+    GameModel,
+    SaveGameModel
 };

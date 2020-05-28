@@ -1,4 +1,4 @@
-import {MunchkinDesk} from "./munchkin-desk.js";
+import {MunchkinDesk} from "./components/desk/munchkin-desk.js";
 
 export class MunchkinModule {
 

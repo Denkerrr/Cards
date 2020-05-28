@@ -1,3 +1,5 @@
+@import 'scroll.css';
+
 :root {
     --card-background: azure;
     --card-height: 350px;
@@ -110,11 +112,19 @@ footer {
 
 .munchkin-desk__player {
     display: grid;
+    grid-template-columns: 1fr 150px;
+    grid-gap: 30px;
+    grid-column: span 3;
+    padding: 0 30px;
+}
+
+.munchkin-desk__player__cards {
+    flex: 1;
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(50px, 150px));
     grid-gap: 30px;
     justify-content: center;
     align-items: center;
-    grid-column: span 3;
     height: 100%;
     --card-height: 250px;
     --card-text-height: 50px;
@@ -122,9 +132,52 @@ footer {
 }
 
 .munchkin-desk__player--enemy {
+    grid-template-columns: 1fr;
     --card-background: tomato;
 }
 
 .munchkin-desk__player--enemy .cards__item * {
     display: none;
+}
+
+/* MUNCHKIN ITEMS STASH */
+
+.munchkin-desk__player__stash-button {
+    height: 100%;
+    width: 100%;
+    background: darksalmon;
+    position: relative;
+}
+
+.munchkin__stash {
+    width: 300px;
+    background: white;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,.5);
+    border-radius: 4px;
+    position: absolute;
+    bottom: 105%;
+    right: 0;
+}
+
+.munchkin__stash__list {
+    padding: 0 10px;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.munchkin__stash__list__item {
+    list-style-type: none;
+    height: 25px;
+    line-height: 25px;
+    border: 1px solid rgba(0,0,0,.5);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 5px 0;
+    cursor: grabbing;
+}
+
+.munchkin__stash__list__item--dragzone {
+    border: 1px solid rgba(0,0,0,.75);
+    background: red;
 }

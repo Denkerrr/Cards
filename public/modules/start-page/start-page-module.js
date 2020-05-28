@@ -30,7 +30,7 @@ export class StartPageModule {
     }
 
     updateCards() {
-        const _cardsContainer = document.getElementById('cards-container');
+        const _cardsContainer = document.getElementById('games-container');
         if (_cardsContainer) {
             this.element.removeChild(_cardsContainer);
         }

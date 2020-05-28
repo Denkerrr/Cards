@@ -5,7 +5,7 @@ export class Card {
         description: '',
         imageUrl: '',
         redirectUrl: '',
-        disable: true,
+        disable: false,
         _parent: null
     };
     _element;
@@ -79,7 +79,7 @@ export class Card {
         this._element.appendChild(this.setImageElement());
         this._element.appendChild(this.setNameElement());
         this._element.appendChild(this.setDescriptionElement());
-        this._element.appendChild(this.setDeleteButton())
+        this._element.appendChild(this.setDeleteButton());
 
         if (this.config.redirectUrl) {
             this._element.classList.add('cards__item--redirect');

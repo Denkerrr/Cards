@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-router.use('/cards', require('./modules/cards/cards.controller'));
+router.use('/games', require('./modules/games/games.controller'));
 
 module.exports = router;
 
