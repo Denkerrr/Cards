@@ -1,19 +1,17 @@
+import {_draggable} from "../../../../helpers/draggable.js";
+
 export class MunchkinItemsStash {
     items = [];
     #_element;
     #_stashElement;
-    dragIndexes = {
-        start: -1,
-        end: -1
-    };
     selfClick = true;
-    updateDesk = () => {
+    update = () => {
     };
 
-    constructor(props, updateDesk) {
+    constructor(items, update) {
         self = this;
-        this.items = Array.isArray(props) ? props : [];
-        this.updateDesk = updateDesk;
+        this.items = Array.isArray(items) ? items : [];
+        this.update = update;
         this.create();
     }
 
@@ -40,45 +38,9 @@ export class MunchkinItemsStash {
             _item.className = 'munchkin__stash__list__item';
             _item.id = item.config.id;
             _item.innerText = item.config.name;
-            _item.setAttribute('drag-index', index);
-            _item.setAttribute('draggable', 'true');
-            self.setItemListeners(_item);
+            _draggable(_item, index, self.update);
             el.appendChild(_item);
         }
-    }
-
-    setItemListeners(listItem) {
-        listItem.addEventListener('dragstart', self.dragStartItem, false);
-        listItem.addEventListener('dragend', self.dragEndItem, false);
-        listItem.addEventListener('dragover', self.dragOverItem, false);
-        listItem.addEventListener('drop', self.dropItem, false);
-    }
-
-    dragStartItem(e) {
-        self.dragIndexes.start = e.target.getAttribute('drag-index');
-        e.target.style.opacity = .5;
-    }
-
-    dragEndItem(e) {
-        e.target.style.opacity = "";
-    }
-
-    dragOverItem(e) {
-        e.preventDefault();
-    }
-
-    dropItem(e) {
-        e.preventDefault();
-        self.dragIndexes.end = e.target.getAttribute('drag-index');
-        if (self.dragIndexes.start !== self.dragIndexes) {
-            self.update(Object.values(self.dragIndexes));
-        }
-    }
-
-    update([start, end]) {
-        [self.items[start], self.items[end]] = [self.items[end], self.items[start]];
-        this.updateStash(self.items);
-        this.updateDesk(self.items);
     }
 
     get element() {
@@ -86,6 +48,7 @@ export class MunchkinItemsStash {
     }
 
     updateStash(items) {
+        this.items = Array.isArray(items) ? items : [];
         while (this._stashElement.children.length) this._stashElement.removeChild(this._stashElement.firstChild);
         items.forEach(this.addItem(this._stashElement));
     }

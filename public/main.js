@@ -1,5 +1,7 @@
 import RoutingModule from "./routing-module.js";
 
+globalThis.dragIndexes = globalThis.dragIndexes ? globalThis.dragIndexes : {start: -1,end: -1};
+
 export const route = new RoutingModule();
 window.addEventListener("popstate", event => {
    route.loadContentByUrl(event.state.url);

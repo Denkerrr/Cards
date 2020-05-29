@@ -41,11 +41,25 @@ export class MunchkinPlayerDesk {
     }
 
     initializeCards() {
-        this._cards = this.config.cards.map(x => this.addCard(x));
+        this._cards = this.config.cards.map((x, i) => this.addCard(x, i));
     }
 
-    addCard(card) {
-        return new Card({...card, disable: this.isEnemy})
+    addCard(card, index) {
+        return new Card(
+            {...card, disable: this.isEnemy},
+            {dragIndex: index, update: this.update.bind(this)}
+        )
+    }
+
+    update([start, end]) {
+
+        this._cards[start].element.setAttribute('drag-index', end);
+        this._cards[end].element.setAttribute('drag-index', start);
+
+        [this._cards[start], this._cards[end]] = [this._cards[end], this._cards[start]];
+
+        this.updateDesk(this._cards);
+        if (this._stash !== undefined) this._stash.updateStash(this._cards);
     }
 
     createDesk() {
@@ -76,7 +90,7 @@ export class MunchkinPlayerDesk {
             if (_stashElement) {
                 this._stashButton.removeChild(_stashElement);
             } else {
-                this._stash = new MunchkinItemsStash(this._cards, this.updateDesk.bind(this));
+                this._stash = new MunchkinItemsStash(this._cards, this.update.bind(this));
                 this._stashButton.appendChild(this._stash.element);
             }
         }

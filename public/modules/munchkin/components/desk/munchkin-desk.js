@@ -1,4 +1,9 @@
 import {MunchkinPlayerDesk} from "./munchkin-player-desk.js";
+import {MunchkinBufferZone} from "./munchkin-buffer-zone.js";
+import {request} from "../../../../helpers/request.js";
+
+//TODO remove after getting munchkin id
+const MUNCHKIN_ID = '1wJeQpduUeLNP7cMi7hZ';
 
 export class MunchkinDesk {
 
@@ -6,7 +11,7 @@ export class MunchkinDesk {
         player: {
             cards: Array.from(Array(10)).map((x, i) => ({
                 id: 1,
-                name: 'Attack #' + (i+1),
+                name: 'Attack #' + (i + 1),
                 description: 'Set 1 damage'
             }))
         },
@@ -21,23 +26,39 @@ export class MunchkinDesk {
         itemsPackCount: 70
     };
 
+    _element = document.getElementById('div');
+    #_opponentDesk;
+    #_playerDesk;
+    #_bufferZone;
+
     constructor() {
     }
 
-    getHTML() {
+    getHtml() {
+        this._element = document.createElement('div');
+        this.element.className = 'munchkin-desk';
 
-        const _desk = document.createElement('div');
-        _desk.className = 'munchkin-desk';
+        this.addElements();
+        return this.element;
+    }
 
-        _desk.appendChild(new MunchkinPlayerDesk(this.game.opponent, true).element);
-        _desk.appendChild(document.createElement('div'));
-        _desk.appendChild(document.createElement('div'));
-        _desk.appendChild(document.createElement('div'));
-        // _desk.appendChild(new MunchkinMonsterPack().element);
-        // _desk.appendChild(new MunchkinActionArea().element);
-        // _desk.appendChild(new MunchkinItemsPack().element)
-        _desk.appendChild(new MunchkinPlayerDesk(this.game.player).element);
+    get element() {
+        return this._element;
+    }
 
-        return _desk;
+    addElements() {
+        request('GET', 'api/games/get/' + MUNCHKIN_ID + '/deck/get').then(deck => {
+            this.game.opponent.cards = this.game.player.cards = deck.cards;
+
+            this._opponentDesk = new MunchkinPlayerDesk(this.game.opponent, true);
+            this._playerDesk = new MunchkinPlayerDesk(this.game.opponent);
+            this._bufferZone = new MunchkinBufferZone();
+
+            this.element.appendChild(this._opponentDesk.element);
+            this.element.appendChild(document.createElement('div'));
+            this.element.appendChild(this._bufferZone.element);
+            this.element.appendChild(document.createElement('div'));
+            this.element.appendChild(this._playerDesk.element);
+        })
     }
 }

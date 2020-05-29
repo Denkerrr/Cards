@@ -76,6 +76,7 @@ footer {
 .cards__item__image {
     height: 100%;
     width: 100%;
+    min-width: 0;
 }
 
 .cards__item__button {
@@ -122,11 +123,11 @@ footer {
     flex: 1;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(50px, 150px));
-    grid-gap: 30px;
+    grid-gap: 10px 30px;
     justify-content: center;
     align-items: center;
     height: 100%;
-    --card-height: 250px;
+    --card-height: 240px;
     --card-text-height: 50px;
     --card-description-height: 50px;
 }
@@ -174,6 +175,10 @@ footer {
     text-overflow: ellipsis;
     white-space: nowrap;
     margin: 5px 0;
+}
+
+.munchkin__stash__list__item[draggable="true"],
+.cards__item[draggable="true"] {
     cursor: grabbing;
 }
 

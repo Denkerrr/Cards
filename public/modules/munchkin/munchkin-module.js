@@ -9,7 +9,7 @@ export class MunchkinModule {
     getHTML() {
         const html = document.createElement('div');
         html.id = 'munchkin';
-        html.appendChild(this.desk.getHTML());
+        html.appendChild(this.desk.getHtml());
         return html;
     }
 }

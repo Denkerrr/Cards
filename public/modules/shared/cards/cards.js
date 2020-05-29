@@ -30,14 +30,15 @@ export class Cards {
     removeCard(id) {
         request(
             'DELETE',
-            `api/cards/remove/${id}`,
+            `api/games/remove/${id}`,
         ).then(response => {
             const _cardIndex = this._cards.findIndex(x => x.config.id === id);
             if (_cardIndex >= 0) {
                 this._element.removeChild(this._cards[_cardIndex].element);
                 this._cards.filter((x, i) => i !== _cardIndex);
             }
-        });
+        })
+            .catch(e => console.error(e));
 
     }
 

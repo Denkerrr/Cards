@@ -1,3 +1,5 @@
+import {_draggable} from "../../../helpers/draggable.js";
+
 export class Card {
     config = {
         id: 0,
@@ -8,10 +10,14 @@ export class Card {
         disable: false,
         _parent: null
     };
+
+    draggable = null;
+
     _element;
 
-    constructor(props) {
+    constructor(props, draggable) {
         this.init(props);
+        this.draggable = draggable || null;
         this.create();
     }
 
@@ -74,6 +80,8 @@ export class Card {
 
         if (this.config.disable) {
             this._element.setAttribute('disable', '');
+        } else if (this.draggable !== null) {
+            _draggable(this._element, this.draggable.dragIndex, this.draggable.update);
         }
 
         this._element.appendChild(this.setImageElement());
