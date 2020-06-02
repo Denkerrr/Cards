@@ -1,15 +1,20 @@
-export function _draggable(el, dragIndex, cb) {
+export function _draggable(el, dragIndex, cb, func) {
+
+    func = {dragEndItem, dragStartItem, dragOverItem, dropItem, ...func};
 
     el.setAttribute('drag-index', dragIndex);
     el.setAttribute('draggable', 'true');
-    el.addEventListener('dragstart', dragStartItem, false);
-    el.addEventListener('dragend', dragEndItem, false);
-    el.addEventListener('dragover', dragOverItem, false);
-    el.addEventListener('drop', dropItem, false);
+    el.addEventListener('dragstart', (e) => func.dragStartItem(e), false);
+    el.addEventListener('dragend', (e) => func.dragEndItem(e), false);
+    el.addEventListener('dragover', (e) => func.dragOverItem(e), false);
+    el.addEventListener('drop', (e) => func.dropItem(e), false);
 
     function dragStartItem(e) {
-        globalThis.dragIndexes.start = getDragIndex(e.target);
-        e.target.style.opacity = .5;
+        if (e.target.hasAttribute('key')) {
+            globalThis.dragIndexes.start = getDragIndex(e.target);
+            e.dataTransfer.setData('text', e.target.getAttribute('key'));
+            e.target.style.opacity = .5;
+        }
     }
 
     function dragEndItem(e) {

@@ -11,6 +11,6 @@ export function createCard(props) {
 export function getCards() {
     return request(
         'GET',
-        'api/games/get/all'
+        'api/games/all'
     )
 }

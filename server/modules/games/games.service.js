@@ -43,7 +43,6 @@ function removeGame(req, res) {
         .catch((error) => res.status(500).send(error))
 }
 
-
 function getGameCardsDeck(req, res) {
     let result = {
         name: '',

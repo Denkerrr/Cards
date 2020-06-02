@@ -47,7 +47,10 @@ export class MunchkinPlayerDesk {
     addCard(card, index) {
         return new Card(
             {...card, disable: this.isEnemy},
-            {dragIndex: index, update: this.update.bind(this)}
+            {
+                dragIndex: index,
+                update: this.update.bind(this)
+            }
         )
     }
 
