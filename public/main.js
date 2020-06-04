@@ -1,6 +1,6 @@
 import RoutingModule from "./routing-module.js";
 
-globalThis.dragIndexes = globalThis.dragIndexes ? globalThis.dragIndexes : {start: -1,end: -1};
+globalThis.dragIndexes = globalThis.dragIndexes ? globalThis.dragIndexes : { start: -1, end: -1 };
 
 export const route = new RoutingModule();
 window.addEventListener("popstate", event => {
@@ -14,3 +14,5 @@ document.getElementById('root').addEventListener('click', (e) => {
       route.go(routeTrigger.getAttribute('route'));
    }
 })
+
+var socket = io();
