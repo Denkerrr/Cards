@@ -47,18 +47,23 @@ export class MunchkinDesk {
     }
 
     addElements() {
-        request('GET', 'api/games/get/' + MUNCHKIN_ID + '/deck/get').then(deck => {
-            this.game.opponent.cards = this.game.player.cards = deck.cards;
+        Promise.all([
+            request('GET', 'api/games/' + MUNCHKIN_ID + '/deck'),
+            request('POST', 'api/game/create')
+        ])
+            .then(([deck, GAME_ID]) => {
+                debugger;
+                this.game.opponent.cards = this.game.player.cards = deck.cards;
 
-            this._opponentDesk = new MunchkinPlayerDesk(this.game.opponent, true);
-            this._playerDesk = new MunchkinPlayerDesk(this.game.opponent);
-            this._bufferZone = new MunchkinBufferZone();
+                this._opponentDesk = new MunchkinPlayerDesk(this.game.opponent, true);
+                this._playerDesk = new MunchkinPlayerDesk(this.game.opponent);
+                this._bufferZone = new MunchkinBufferZone(GAME_ID);
 
-            this.element.appendChild(this._opponentDesk.element);
-            this.element.appendChild(document.createElement('div'));
-            this.element.appendChild(this._bufferZone.element);
-            this.element.appendChild(document.createElement('div'));
-            this.element.appendChild(this._playerDesk.element);
-        })
+                this.element.appendChild(this._opponentDesk.element);
+                this.element.appendChild(document.createElement('div'));
+                this.element.appendChild(this._bufferZone.element);
+                this.element.appendChild(document.createElement('div'));
+                this.element.appendChild(this._playerDesk.element);
+            })
     }
 }

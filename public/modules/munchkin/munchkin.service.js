@@ -3,7 +3,7 @@ import {request} from "../../helpers/request.js";
 export function getDeck() {
     return request(
         'GET',
-        'api/games/get/' + '1wJeQpduUeLNP7cMi7hZ' + '/deck/get'
+        'api/games/' + '1wJeQpduUeLNP7cMi7hZ' + '/deck'
     )
 }
 

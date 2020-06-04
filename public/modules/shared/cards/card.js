@@ -81,7 +81,12 @@ export class Card {
         if (this.config.disable) {
             this._element.setAttribute('disable', '');
         } else if (this.draggable !== null) {
-            _draggable(this._element, this.draggable.dragIndex, this.draggable.update);
+            _draggable(
+                this._element,
+                this.draggable.dragIndex,
+                this.draggable.update,
+                this.draggable.func
+            );
         }
 
         this._element.appendChild(this.setImageElement());
